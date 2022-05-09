@@ -1,4 +1,4 @@
-# system-application
+# Python REST API
 
 
-#### Created using Python
+#### Created using Python & Flask
