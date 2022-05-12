@@ -1,4 +1,4 @@
-# Python REST API
+# URL Shortner API
 
 
-#### Created using Python & Flask
+#### Created using JavScript, Node.js (Express.js), and MongoDB
