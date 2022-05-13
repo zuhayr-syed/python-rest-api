@@ -1,0 +1,6 @@
+POST http://localhost:5002/api/url/shorten
+Content-Type: application/json
+
+{
+    "longUrl": "https://www.google.com/search?q=iphone&sxsrf=ALiCzsbwlV9jo5CNQ2NnwsdJ-7ecwjdiFw:1652412794791&source=lnms&tbm=isch&sa=X&ved=2ahUKEwi7lp-txdv3AhWOkYkEHYxtDFkQ_AUoA3oECAEQBQ&biw=1920&bih=968&dpr=1#imgrc=vZlL-xD9owZEmM"
+}
