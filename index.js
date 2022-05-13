@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDB = require('./config/db')
+const connectDB = require('./config/db');
 
 const app = express();
 
@@ -7,6 +7,10 @@ const app = express();
 connectDB();
 
 app.use(express.json({ extended: false}));
+
+// Define routes
+app.use('/', require('./routes/index'));
+app.use('/api/url', require('./routes/url'));
 
 const PORT = 6000;
 
