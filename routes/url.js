@@ -5,7 +5,6 @@ const shortid = require('shortid');
 const config = require('config');
 
 const Url = require('../models/Url');
-const { base } = require('../models/Url');
 
 // @route   POST /api/url/shorten
 // @desc    Create short URL
@@ -17,9 +16,6 @@ router.post('/shorten', async (req, res) =>{
         return res.status(401).json('Invalid base URL');
     }
 
-    // Create url code
-    const urlCode = shortid.generate();
-
     // Check long url
     if(validUrl.isUri(longUrl)) {
         try {
@@ -28,6 +24,16 @@ router.post('/shorten', async (req, res) =>{
             if(url){ // Check if url is already in db and return if it is
                 res.json(url);
             } else{
+                // Create url code
+                let urlCode = shortid.generate();
+
+                // Ensure that url id is unique, if not create another one
+                let URLCode = urlCode;
+                let idCheck = await Url.findOne({ urlCode: URLCode });
+                if(idCheck) { 
+                    urlCode =  uniqueID();
+                }
+
                 const shortUrl = baseUrl + '/' + urlCode;
 
                 url = new Url ({
@@ -51,5 +57,14 @@ router.post('/shorten', async (req, res) =>{
 
 });
 
+async function uniqueID () {
+    const URLCode = shortid.generate();
+    idCheck = await Url.findOne({ urlCode: URLCode });
+    if(idCheck) {
+        return uniqueID();
+    } else{
+        return URLCode;
+    }
+}
 
 module.exports = router;
