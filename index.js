@@ -9,8 +9,8 @@ connectDB();
 app.use(express.json({ extended: false}));
 
 // Define routes
-app.use('/', require('./routes/index'));
-app.use('/api/url', require('./routes/url'));
+app.use('/', require('./routes/index')); // Redirect to long url
+app.use('/api/url', require('./routes/url')); // Make requests to create url
 
 const PORT = 5002;
 
