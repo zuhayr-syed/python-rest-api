@@ -1,4 +1,4 @@
-# URL Shrinker API
+# URL Shrinker App
 
 
-#### Created using JavScript, Node.js (Express.js), and MongoDB
+#### Created using JavScript, Node.js (Express.js), React, and MongoDB
