@@ -11,7 +11,8 @@ app.use(express.json({ extended: false}));
 // Define routes
 app.use('/', require('./routes/index')); // Redirect to long url
 app.use('/api/url', require('./routes/url')); // Make requests to create url
+app.use('/api', require('./routes/list')); // Make requests to create url
 
-const PORT = 5002;
+const PORT = 5003;
 
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
