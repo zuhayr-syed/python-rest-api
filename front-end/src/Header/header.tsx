@@ -4,11 +4,15 @@ import Navbar from "react-bootstrap/Navbar";
 
 function Header() {
   return (
-    <Navbar bg="light" sticky="top">
-      <Container>
-        <Navbar.Brand>URL Shrinker</Navbar.Brand>
-      </Container>
-    </Navbar>
+    <div>
+      <Navbar bg="dark" variant="dark" sticky="top">
+        <Container>
+          <Navbar.Brand>
+            <h1>URL Shrinker</h1>
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+    </div>
   );
 }
 

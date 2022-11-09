@@ -5,14 +5,14 @@ import Header from "./Header/header";
 
 function App() {
   return (
-    <>
-      <div>
+    <div>
+      <div className="root">
         <Header />
       </div>
-      <div className="urlList">
+      <div className="root">
         <UrlList />
       </div>
-    </>
+    </div>
   );
 }
 

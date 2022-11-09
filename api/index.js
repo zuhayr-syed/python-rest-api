@@ -1,17 +1,20 @@
-const express = require('express');
-const connectDB = require('./config/db');
+const express = require("express");
+const connectDB = require("./config/db");
 
 const app = express();
+
+var cors = require("cors");
+app.use(cors());
 
 //Connect to db
 connectDB();
 
-app.use(express.json({ extended: false}));
+app.use(express.json({ extended: false }));
 
 // Define routes
-app.use('/', require('./routes/index')); // Redirect to long url
-app.use('/api/url', require('./routes/url')); // Make requests to create url
-app.use('/api', require('./routes/list')); // Make requests to create url
+app.use("/", require("./routes/index")); // Redirect to long url
+app.use("/api/url", require("./routes/url")); // Make requests to create url
+app.use("/api", require("./routes/list")); // Make requests to create url
 
 const PORT = 5003;
 
