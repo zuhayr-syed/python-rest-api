@@ -5,9 +5,12 @@ import UrlListOrder from "./ListOrder";
 import "./list.css";
 import LoadingSpinner from "./Loader/loader";
 
+interface PropsDefinition {
+  setFullList(data: any[]): void;
+}
 const baseURL = "http://localhost:5003/api/all";
 
-function UrlList() {
+function UrlList(props: PropsDefinition) {
   const [urlList, setList] = React.useState<any[]>([]);
   const [listOption, setListOption] = React.useState<number>(0); // use
   const [isLoading, setLoader] = React.useState<boolean>(true); // use
@@ -18,6 +21,7 @@ function UrlList() {
       try {
         await axios.get(baseURL).then((response) => {
           setList(response.data);
+          props.setFullList(response.data);
         });
         setLoader(false);
       } catch {
