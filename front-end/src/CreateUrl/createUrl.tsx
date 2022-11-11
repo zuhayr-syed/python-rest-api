@@ -56,11 +56,22 @@ function CreateUrl(props: PropsDefinition) {
       if (url.urlCode === urlCode) {
         errCheck = 1;
       }
+      if (url.longUrl === longUrl) {
+        errCheck = 2;
+      }
     });
 
     if (errCheck === 1) {
       event.preventDefault();
       const urlInvalid = "Url code has already been used";
+      console.log(urlInvalid);
+      setResError(urlInvalid);
+      return;
+    }
+
+    if (errCheck === 2) {
+      event.preventDefault();
+      const urlInvalid = "Long url code has already been shortened";
       console.log(urlInvalid);
       setResError(urlInvalid);
       return;
