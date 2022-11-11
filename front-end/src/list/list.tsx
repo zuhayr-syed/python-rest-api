@@ -5,6 +5,7 @@ import UrlListOrder from "./ListOrder";
 import "./list.css";
 import LoadingSpinner from "./Loader/loader";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 interface PropsDefinition {
   setFullList(data: any[]): void;
@@ -14,8 +15,9 @@ const baseDeleteURL = "http://localhost:5003/api/url/delete";
 
 function UrlList(props: PropsDefinition) {
   const [urlList, setList] = React.useState<any[]>([]);
-  const [listOption, setListOption] = React.useState<number>(0); // use
-  const [isLoading, setLoader] = React.useState<boolean>(true); // use
+  const [listOption, setListOption] = React.useState<number>(0);
+  const [isLoading, setLoader] = React.useState<boolean>(true);
+  const [showAlert, setShowAlert] = React.useState<boolean>(false);
   let emptyText = "Urls list is empty";
 
   const handleDeleteClick = (id: string) => {
@@ -32,6 +34,7 @@ function UrlList(props: PropsDefinition) {
         console.log("Error", error.message);
       }
     });
+    setShowAlert(true);
     const filteredList = urlList.filter((url) => url._id !== id);
     setList(filteredList);
   };
@@ -53,6 +56,17 @@ function UrlList(props: PropsDefinition) {
 
   return (
     <div>
+      {showAlert && (
+        <div className="pb-3">
+          <Alert
+            variant="success"
+            onClose={() => setShowAlert(false)}
+            dismissible
+          >
+            Url Removed
+          </Alert>
+        </div>
+      )}
       <div className="orderButton">
         <UrlListOrder
           setListOption={setListOption}
