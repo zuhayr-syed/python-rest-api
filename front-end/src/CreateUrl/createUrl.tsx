@@ -16,6 +16,11 @@ function CreateUrl(props: PropsDefinition) {
   const [longUrl, setLongUrl] = React.useState<string>("");
   const [urlCode, setUrlCode] = React.useState<string>("");
   const [resError, setResError] = React.useState<string>("");
+  const createUrlText = ["Show Fields To Create Url", "Hide Url Fields"];
+  const [showFields, setShowFields] = React.useState<boolean>(false);
+  const [fieldMenuText, setFieldMenuText] = React.useState<string>(
+    createUrlText[0]
+  );
 
   function isValidHttpUrl(string: string) {
     let url;
@@ -26,6 +31,16 @@ function CreateUrl(props: PropsDefinition) {
     }
     return url.protocol === "http:" || url.protocol === "https:";
   }
+
+  const handleMenuClick = () => {
+    const updatedShowFields = !showFields;
+    setShowFields(updatedShowFields);
+    if (updatedShowFields) {
+      setFieldMenuText(createUrlText[1]);
+    } else {
+      setFieldMenuText(createUrlText[0]);
+    }
+  };
 
   const handleSubmit = (event: any) => {
     if (!isValidHttpUrl(longUrl)) {
@@ -72,58 +87,69 @@ function CreateUrl(props: PropsDefinition) {
   };
 
   return (
-    <div className="pb-3">
-      <Form onSubmit={handleSubmit}>
-        <Row className="align-items-center">
-          <Col sm={12} className="my-1 pt-2">
-            <Form.Label htmlFor="inlineFormInputName">LongUrl</Form.Label>
-            <Form.Control
-              id="inlineFormLongUrl"
-              placeholder="Enter Long Url..."
-              required
-              value={longUrl}
-              onChange={(event) => setLongUrl(event.target.value)}
-            />
-          </Col>
-        </Row>
-        {resError && (
-          <Row className="error-spacing">
+    <div className="pt-3 pb-3">
+      <div className="pb-2">
+        <Button variant="secondary" onClick={handleMenuClick}>
+          {fieldMenuText} &nbsp;
+          {!showFields && <i className="bi bi-arrow-down-circle-fill"></i>}
+          {showFields && <i className="bi bi-arrow-up-circle-fill"></i>}
+        </Button>
+      </div>
+      {showFields && (
+        <Form onSubmit={handleSubmit}>
+          <Row className="align-items-center">
             <Col sm={12} className="my-1 pt-2">
-              <div className="alert alert-danger" role="alert">
-                {resError}
-              </div>
+              <Form.Label htmlFor="inlineFormInputName">LongUrl</Form.Label>
+              <Form.Control
+                id="inlineFormLongUrl"
+                placeholder="Enter Long Url..."
+                required
+                value={longUrl}
+                onChange={(event) => setLongUrl(event.target.value)}
+              />
             </Col>
           </Row>
-        )}
-        <Row className="align-items-center">
-          <Col sm={4} className="my-1 pt-2">
-            <Form.Label htmlFor="inlineFormInputGroupUsername">
-              UrlCode
-            </Form.Label>
-            <InputGroup>
-              <InputGroup.Text>optional</InputGroup.Text>
-              <Form.Control
-                id="inlineFormInputUrlCode"
-                placeholder="Enter Url Code..."
-                value={urlCode}
-                onChange={(event) => setUrlCode(event.target.value)}
-              />
-            </InputGroup>
-          </Col>
-        </Row>
-        <Row className="align-items-center">
-          <Col xs="auto" className="my-1 pt-3 pb-3">
-            <Button
-              type="submit"
-              variant="success"
-              disabled={longUrl.length === 0}
-            >
-              Submit
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-      <hr />
+          {resError && (
+            <Row className="error-spacing">
+              <Col sm={12} className="my-1 pt-2">
+                <div className="alert alert-danger" role="alert">
+                  {resError}
+                </div>
+              </Col>
+            </Row>
+          )}
+          <Row className="align-items-center">
+            <Col sm={4} className="my-1 pt-2">
+              <Form.Label htmlFor="inlineFormInputGroupUsername">
+                UrlCode
+              </Form.Label>
+              <InputGroup>
+                <InputGroup.Text>optional</InputGroup.Text>
+                <Form.Control
+                  id="inlineFormInputUrlCode"
+                  placeholder="Enter Url Code..."
+                  value={urlCode}
+                  onChange={(event) => setUrlCode(event.target.value)}
+                />
+              </InputGroup>
+            </Col>
+          </Row>
+          <Row className="align-items-center">
+            <Col xs="auto" className="my-1 pt-3">
+              <Button
+                type="submit"
+                variant="success"
+                disabled={longUrl.length === 0}
+              >
+                Submit
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      )}
+      <div className="pt-3">
+        <hr />
+      </div>
     </div>
   );
 }
