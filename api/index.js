@@ -16,6 +16,7 @@ app.use("/", require("./routes/index")); // Redirect to long url
 app.use("/api/url", require("./routes/url")); // Make requests to create url
 app.use("/api", require("./routes/list")); // Make requests to create url
 app.use("/api/url/delete", require("./routes/delete")); // Make requests to delete url
+app.use("/api/url/update", require("./routes/update")); // Make requests to update url
 
 const PORT = 5003;
 
