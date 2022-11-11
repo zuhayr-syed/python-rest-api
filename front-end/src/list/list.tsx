@@ -39,6 +39,10 @@ function UrlList(props: PropsDefinition) {
     setList(filteredList);
   };
 
+  const handleUpdateClick = (url: any) => {
+    console.log(url);
+  };
+
   React.useEffect(() => {
     const getData = async () => {
       try {
@@ -79,6 +83,7 @@ function UrlList(props: PropsDefinition) {
           <thead>
             <tr>
               <th></th>
+              <th></th>
               <th>Date Created (dd/mm/yyyy)</th>
               <th>Url Code</th>
               <th>Short Url</th>
@@ -96,6 +101,15 @@ function UrlList(props: PropsDefinition) {
                       onClick={() => handleDeleteClick(url._id)}
                     >
                       <i className="bi bi-trash"></i>
+                    </Button>
+                  </td>
+                  <td>
+                    <Button
+                      variant="outline-dark"
+                      size="sm"
+                      onClick={() => handleUpdateClick(url)}
+                    >
+                      <i className="bi bi-pencil-square"></i>
                     </Button>
                   </td>
                   <td>{url.date.slice(3, 15)}</td>
