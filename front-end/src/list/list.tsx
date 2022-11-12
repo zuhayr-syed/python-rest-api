@@ -103,14 +103,15 @@ function UrlList(props: PropsDefinition) {
           <tbody>
             {urlList.map((url: any) => {
               return (
-                <tr key={url.urlCode}>
-                  <td
-                    className={
-                      props.showEditUrl && props.editUrlId === url._id
-                        ? "border border-warning border-3"
-                        : ""
-                    }
-                  >
+                <tr
+                  key={url.urlCode}
+                  className={
+                    props.showEditUrl && props.editUrlId === url._id
+                      ? "border border-dark border-3"
+                      : ""
+                  }
+                >
+                  <td>
                     <Button
                       variant="outline-danger"
                       size="sm"
@@ -119,13 +120,7 @@ function UrlList(props: PropsDefinition) {
                       <i className="bi bi-trash"></i>
                     </Button>
                   </td>
-                  <td
-                    className={
-                      props.showEditUrl && props.editUrlId === url._id
-                        ? "border border-warning border-3"
-                        : ""
-                    }
-                  >
+                  <td>
                     <Button
                       variant="outline-dark"
                       size="sm"
@@ -134,31 +129,9 @@ function UrlList(props: PropsDefinition) {
                       <i className="bi bi-pencil-square"></i>
                     </Button>
                   </td>
-                  <td
-                    className={
-                      props.showEditUrl && props.editUrlId === url._id
-                        ? "border border-warning border-3"
-                        : ""
-                    }
-                  >
-                    {url.date.slice(3, 15)}
-                  </td>
-                  <td
-                    className={
-                      props.showEditUrl && props.editUrlId === url._id
-                        ? "border border-warning border-3"
-                        : ""
-                    }
-                  >
-                    {url.urlCode}
-                  </td>
-                  <td
-                    className={
-                      props.showEditUrl && props.editUrlId === url._id
-                        ? "border border-warning border-3"
-                        : ""
-                    }
-                  >
+                  <td>{url.date.slice(3, 15)}</td>
+                  <td>{url.urlCode}</td>
+                  <td>
                     <a
                       href={url.shortUrl}
                       target="_blank"
@@ -167,15 +140,7 @@ function UrlList(props: PropsDefinition) {
                       {url.shortUrl}
                     </a>
                   </td>
-                  <td
-                    className={
-                      props.showEditUrl && props.editUrlId === url._id
-                        ? "border border-warning border-3"
-                        : ""
-                    }
-                  >
-                    {url.longUrl}
-                  </td>
+                  <td>{url.longUrl}</td>
                 </tr>
               );
             })}
