@@ -9,6 +9,12 @@ import Alert from "react-bootstrap/Alert";
 
 interface PropsDefinition {
   setFullList(data: any[]): void;
+  showEditUrl: boolean;
+  setShowEditUrl(data: boolean): void;
+  setEditLongUrl(data: string): void;
+  setEditUrlCode(data: string): void;
+  editUrlId: string;
+  setEditUrlId(data: string): void;
 }
 const baseURL = "http://localhost:5003/api/all";
 const baseDeleteURL = "http://localhost:5003/api/url/delete";
@@ -40,7 +46,11 @@ function UrlList(props: PropsDefinition) {
   };
 
   const handleUpdateClick = (url: any) => {
-    console.log(url);
+    props.setShowEditUrl(true);
+    props.setEditLongUrl(url.longUrl);
+    props.setEditUrlCode(url.urlCode);
+    props.setEditUrlId(url._id);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
   React.useEffect(() => {
@@ -94,7 +104,13 @@ function UrlList(props: PropsDefinition) {
             {urlList.map((url: any) => {
               return (
                 <tr key={url.urlCode}>
-                  <td>
+                  <td
+                    className={
+                      props.showEditUrl && props.editUrlId === url._id
+                        ? "border border-warning border-3"
+                        : ""
+                    }
+                  >
                     <Button
                       variant="outline-danger"
                       size="sm"
@@ -103,7 +119,13 @@ function UrlList(props: PropsDefinition) {
                       <i className="bi bi-trash"></i>
                     </Button>
                   </td>
-                  <td>
+                  <td
+                    className={
+                      props.showEditUrl && props.editUrlId === url._id
+                        ? "border border-warning border-3"
+                        : ""
+                    }
+                  >
                     <Button
                       variant="outline-dark"
                       size="sm"
@@ -112,9 +134,31 @@ function UrlList(props: PropsDefinition) {
                       <i className="bi bi-pencil-square"></i>
                     </Button>
                   </td>
-                  <td>{url.date.slice(3, 15)}</td>
-                  <td>{url.urlCode}</td>
-                  <td>
+                  <td
+                    className={
+                      props.showEditUrl && props.editUrlId === url._id
+                        ? "border border-warning border-3"
+                        : ""
+                    }
+                  >
+                    {url.date.slice(3, 15)}
+                  </td>
+                  <td
+                    className={
+                      props.showEditUrl && props.editUrlId === url._id
+                        ? "border border-warning border-3"
+                        : ""
+                    }
+                  >
+                    {url.urlCode}
+                  </td>
+                  <td
+                    className={
+                      props.showEditUrl && props.editUrlId === url._id
+                        ? "border border-warning border-3"
+                        : ""
+                    }
+                  >
                     <a
                       href={url.shortUrl}
                       target="_blank"
@@ -123,7 +167,15 @@ function UrlList(props: PropsDefinition) {
                       {url.shortUrl}
                     </a>
                   </td>
-                  <td>{url.longUrl}</td>
+                  <td
+                    className={
+                      props.showEditUrl && props.editUrlId === url._id
+                        ? "border border-warning border-3"
+                        : ""
+                    }
+                  >
+                    {url.longUrl}
+                  </td>
                 </tr>
               );
             })}
