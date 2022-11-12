@@ -155,7 +155,10 @@ function UpdateUrl(props: PropsDefinition) {
             <Button
               type="submit"
               variant="success"
-              disabled={longUrl === initLongUrl && urlCode === initUrlCode}
+              disabled={
+                (longUrl === initLongUrl && urlCode === initUrlCode) ||
+                longUrl.length === 0
+              }
             >
               Submit
             </Button>
