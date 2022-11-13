@@ -4,6 +4,7 @@ import UrlList from "./list/list";
 import Header from "./Header/header";
 import CreateUrl from "./CreateUrl/createUrl";
 import UpdateUrl from "./EditUrl/editUrl";
+import Search from "./Search/search";
 
 function App() {
   const [fullList, setFullList] = React.useState<any[]>([]);
@@ -18,12 +19,12 @@ function App() {
         <Header />
       </div>
       {!showEditUrl && (
-        <div className="createUrl">
+        <div className="urlFields">
           <CreateUrl fullList={fullList} />
         </div>
       )}
       {showEditUrl && (
-        <div className="createUrl">
+        <div className="urlFields">
           <UpdateUrl
             editLongUrl={editLongUrl}
             editUrlCode={editUrlCode}
@@ -33,6 +34,9 @@ function App() {
           />
         </div>
       )}
+      <div className="search">
+        <Search />
+      </div>
       <div className="fullList">
         <UrlList
           setFullList={setFullList}
