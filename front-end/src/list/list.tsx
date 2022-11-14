@@ -15,6 +15,7 @@ interface PropsDefinition {
   setEditUrlCode(data: string): void;
   editUrlId: string;
   setEditUrlId(data: string): void;
+  searchText: string;
 }
 const baseURL = "http://localhost:5003/api/all";
 const baseDeleteURL = "http://localhost:5003/api/url/delete";

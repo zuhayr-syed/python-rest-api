@@ -12,6 +12,7 @@ function App() {
   const [editLongUrl, setEditLongUrl] = React.useState<string>("");
   const [editUrlCode, setEditUrlCode] = React.useState<string>("");
   const [editUrlId, setEditUrlId] = React.useState<string>("");
+  const [searchText, setSearchText] = React.useState<string>("");
 
   return (
     <div>
@@ -35,7 +36,7 @@ function App() {
         </div>
       )}
       <div className="search">
-        <Search />
+        <Search setSearchText={setSearchText} />
       </div>
       <div className="fullList">
         <UrlList
@@ -46,6 +47,7 @@ function App() {
           setEditUrlCode={setEditUrlCode}
           editUrlId={editUrlId}
           setEditUrlId={setEditUrlId}
+          searchText={searchText}
         />
       </div>
     </div>
