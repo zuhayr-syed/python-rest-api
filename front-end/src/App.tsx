@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div>
-      <div className="root">
+      <div>
         <Header />
       </div>
       {!showEditUrl && (
