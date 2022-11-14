@@ -105,7 +105,7 @@ function UpdateUrl(props: PropsDefinition) {
   }, [props.editLongUrl, props.editUrlCode, props.editUrlId, props.fullList]);
 
   return (
-    <div className="pt-3 pb-3">
+    <div className="pt-5 pb-3">
       <div className="pb-2">
         <Button variant="dark" onClick={handleMenuClick}>
           {createUrlText} &nbsp;

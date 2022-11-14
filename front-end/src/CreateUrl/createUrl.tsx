@@ -98,7 +98,7 @@ function CreateUrl(props: PropsDefinition) {
   };
 
   return (
-    <div className="pt-3 pb-3">
+    <div className="pt-5 pb-3">
       <div className="pb-2">
         <Button variant="secondary" onClick={handleMenuClick}>
           {fieldMenuText} &nbsp;
