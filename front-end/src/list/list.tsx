@@ -26,6 +26,23 @@ function UrlList(props: PropsDefinition) {
   const [isLoading, setLoader] = React.useState<boolean>(true);
   const [showAlert, setShowAlert] = React.useState<boolean>(false);
   let emptyText = "Urls list is empty";
+  const [searchedList, setSearchedList] = React.useState<any[]>([]);
+  const [isSearch, setIsSearch] = React.useState<boolean>(false);
+  const [finalList, setFinalList] = React.useState<any[]>([]);
+
+  const IsUrlSearched = (url: any) => {
+    const code = url.urlCode;
+    const search = props.searchText;
+    for (let x = 0; x < code.length; x++) {
+      let length = search.length + x;
+      if (code.length - x >= search.length) {
+        const slice = code.slice(x, length);
+        if (slice === search) {
+          return true;
+        }
+      }
+    }
+  };
 
   const handleDeleteClick = (id: string) => {
     axios.delete(`${baseDeleteURL}/${id}`).catch((error) => {
@@ -59,6 +76,7 @@ function UrlList(props: PropsDefinition) {
       try {
         await axios.get(baseURL).then((response) => {
           setList(response.data);
+          setFinalList(response.data);
           props.setFullList(response.data);
         });
         setLoader(false);
@@ -68,6 +86,25 @@ function UrlList(props: PropsDefinition) {
     };
     getData();
   }, []);
+
+  React.useEffect(() => {
+    if (props.searchText.length !== 0) {
+      const filteredList = urlList.filter((url) => IsUrlSearched(url));
+      console.log(filteredList);
+      setSearchedList(filteredList);
+      setIsSearch(true);
+    } else {
+      setIsSearch(false);
+    }
+  }, [props.searchText]);
+
+  React.useEffect(() => {
+    if (isSearch) {
+      setFinalList(searchedList);
+    } else {
+      setFinalList(urlList);
+    }
+  }, [isSearch, searchedList]);
 
   return (
     <div>
@@ -89,7 +126,7 @@ function UrlList(props: PropsDefinition) {
           urlList={urlList}
         />
       </div>
-      {urlList.length !== 0 ? (
+      {finalList.length !== 0 ? (
         <Table responsive striped bordered hover>
           <thead>
             <tr>
@@ -102,7 +139,7 @@ function UrlList(props: PropsDefinition) {
             </tr>
           </thead>
           <tbody>
-            {urlList.map((url: any) => {
+            {finalList.map((url: any) => {
               return (
                 <tr
                   key={url.urlCode}
