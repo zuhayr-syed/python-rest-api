@@ -217,6 +217,7 @@ function UrlList(props: PropsDefinition) {
           setFinalList={setFinalList}
           finalList={finalList}
           showEditUrl={props.showEditUrl}
+          searchText={props.searchText}
         />
       </div>
       {finalList.length !== 0 ? (

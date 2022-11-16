@@ -9,6 +9,7 @@ interface PropsDefinition {
   finalList: any[];
   setFinalList(data: any[]): void;
   showEditUrl: boolean;
+  searchText: string;
 }
 const optionArray = ["Newest", "Oldest"];
 
@@ -18,7 +19,9 @@ function UrlListOrder(props: PropsDefinition) {
   React.useEffect(() => {
     const setData = async () => {
       await props.setList(props.urlList.reverse());
-      await props.setFinalList(props.finalList.reverse());
+      if (props.searchText.length !== 0) {
+        await props.setFinalList(props.finalList.reverse());
+      }
     };
 
     if (option === optionArray[0]) {
