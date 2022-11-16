@@ -32,8 +32,8 @@ function UrlList(props: PropsDefinition) {
   const [finalList, setFinalList] = React.useState<any[]>([]);
 
   const IsUrlSearched = (url: any) => {
-    const code = url.urlCode;
-    const search = props.searchText;
+    const code = url.urlCode.toLowerCase();
+    const search = props.searchText.toLowerCase();
     for (let x = 0; x < code.length; x++) {
       let length = search.length + x;
       if (code.length - x >= search.length) {
@@ -46,28 +46,30 @@ function UrlList(props: PropsDefinition) {
   };
 
   const UrlCodeHighlight = (url: any) => {
-    const code = url.urlCode;
-    let firstLetter = 0;
-    const searchLength = props.searchText.length;
+    if (props.searchText.length !== 0) {
+      const code = url.urlCode.toLowerCase();
+      let firstLetter = 0;
+      const searchLength = props.searchText.length;
 
-    for (let x = 0; x < code.length; x++) {
-      if (code[x] === props.searchText[0]) {
-        firstLetter = x;
-        break;
+      for (let x = 0; x < code.length; x++) {
+        if (code[x] === props.searchText[0].toLowerCase()) {
+          firstLetter = x;
+          break;
+        }
       }
+
+      const startText = code.slice(0, firstLetter);
+      const highlightText = code.slice(firstLetter, firstLetter + searchLength);
+      const endText = code.slice(firstLetter + searchLength, code.length);
+
+      return (
+        <span>
+          <span className="text-dark">{startText}</span>
+          <span className="text-dark bg-warning">{highlightText}</span>
+          <span className="text-dark">{endText}</span>
+        </span>
+      );
     }
-
-    const startText = code.slice(0, firstLetter);
-    const highlightText = code.slice(firstLetter, firstLetter + searchLength);
-    const endText = code.slice(firstLetter + searchLength, code.length);
-
-    return (
-      <span>
-        <span className="text-dark">{startText}</span>
-        <span className="text-dark bg-warning">{highlightText}</span>
-        <span className="text-dark">{endText}</span>
-      </span>
-    );
   };
 
   const handleDeleteClick = (id: string) => {
