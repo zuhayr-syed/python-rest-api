@@ -89,6 +89,8 @@ function UrlList(props: PropsDefinition) {
     setShowAlert(true);
     const filteredList = urlList.filter((url) => url._id !== id);
     setList(filteredList);
+    const filteredOrderList = finalList.filter((url) => url._id !== id);
+    setFinalList(filteredOrderList);
   };
 
   const handleUpdateClick = (url: any) => {
