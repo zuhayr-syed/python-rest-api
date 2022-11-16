@@ -26,6 +26,7 @@ function UrlList(props: PropsDefinition) {
   const [isLoading, setLoader] = React.useState<boolean>(true);
   const [showAlert, setShowAlert] = React.useState<boolean>(false);
   let emptyText = "Urls list is empty";
+  const searchEmptyText = "No results for your search";
   const [searchedList, setSearchedList] = React.useState<any[]>([]);
   const [isSearch, setIsSearch] = React.useState<boolean>(false);
   const [finalList, setFinalList] = React.useState<any[]>([]);
@@ -215,8 +216,10 @@ function UrlList(props: PropsDefinition) {
         </Table>
       ) : isLoading ? (
         <LoadingSpinner />
-      ) : (
+      ) : urlList.length === 0 ? (
         <p>{emptyText}</p>
+      ) : (
+        <p>{searchEmptyText}</p>
       )}
     </div>
   );
