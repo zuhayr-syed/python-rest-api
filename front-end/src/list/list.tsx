@@ -99,13 +99,89 @@ function UrlList(props: PropsDefinition) {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
+  // const monthReturn = [
+  //   {
+  //     Jan: 1,
+  //     Feb: 2,
+  //     Mar: 3,
+  //     Apr: 4,
+  //     May: 5,
+  //     Jun: 6,
+  //     Jul: 7,
+  //     Aug: 8,
+  //     Sep: 9,
+  //     Oct: 10,
+  //     Nov: 11,
+  //     Dec: 12,
+  //   },
+  // ];
+  const monthReturn = new Map([
+    ["Jan", 1],
+    ["Feb", 2],
+    ["Mar", 3],
+    ["Apr", 4],
+    ["May", 5],
+    ["Jun", 6],
+    ["Jul", 7],
+    ["Aug", 8],
+    ["Sep", 9],
+    ["Oct", 10],
+    ["Nov", 11],
+    ["Dec", 12],
+  ]);
+
+  const dateOrderLower = (urlCur: any, urlCheck: any) => {
+    if (urlCur.date.slice(10, 15) > urlCheck.date.slice(10, 15)) {
+      return true;
+    } else if (urlCur.date.slice(10, 15) === urlCheck.date.slice(10, 15)) {
+      if (
+        (monthReturn.get(urlCur.date.slice(4, 7)) as number) >
+        (monthReturn.get(urlCheck.date.slice(4, 7)) as number)
+      ) {
+        return true;
+      } else if (
+        (monthReturn.get(urlCur.date.slice(4, 7)) as number) ===
+        (monthReturn.get(urlCheck.date.slice(4, 7)) as number)
+      ) {
+        if (urlCur.date.slice(7, 10) > urlCheck.date.slice(7, 10)) {
+          return true;
+        } else if (urlCur.date.slice(7, 10) === urlCheck.date.slice(7, 10)) {
+          return false;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  };
+
   React.useEffect(() => {
     const getData = async () => {
       try {
         await axios.get(baseURL).then((response) => {
-          setList(response.data);
-          setFinalList(response.data);
-          props.setFullList(response.data);
+          let orderList = response.data;
+          const finalList = [];
+          while (orderList.length !== 0) {
+            let lowest = 0;
+            if (orderList.length !== 1) {
+              for (let y = 1; y < orderList.length; y++) {
+                if (dateOrderLower(orderList[lowest], orderList[y])) {
+                  lowest = y;
+                }
+              }
+            }
+            finalList.push(orderList[lowest]);
+            orderList = orderList.filter(
+              (url: any) => url._id !== orderList[lowest]._id
+            );
+          }
+
+          setList(finalList);
+          setFinalList(finalList);
+          props.setFullList(finalList);
         });
         setLoader(false);
       } catch {
