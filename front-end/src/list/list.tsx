@@ -91,6 +91,7 @@ function UrlList(props: PropsDefinition) {
     setList(filteredList);
     const filteredOrderList = finalList.filter((url) => url._id !== id);
     setFinalList(filteredOrderList);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
   const handleUpdateClick = (url: any) => {
