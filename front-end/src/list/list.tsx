@@ -44,6 +44,31 @@ function UrlList(props: PropsDefinition) {
     }
   };
 
+  const UrlCodeHighlight = (url: any) => {
+    const code = url.urlCode;
+    let firstLetter = 0;
+    const searchLength = props.searchText.length;
+
+    for (let x = 0; x < code.length; x++) {
+      if (code[x] === props.searchText[0]) {
+        firstLetter = x;
+        break;
+      }
+    }
+
+    const startText = code.slice(0, firstLetter);
+    const highlightText = code.slice(firstLetter, firstLetter + searchLength);
+    const endText = code.slice(firstLetter + searchLength, code.length);
+
+    return (
+      <span>
+        <span className="text-dark">{startText}</span>
+        <span className="text-dark bg-warning">{highlightText}</span>
+        <span className="text-dark">{endText}</span>
+      </span>
+    );
+  };
+
   const handleDeleteClick = (id: string) => {
     axios.delete(`${baseDeleteURL}/${id}`).catch((error) => {
       if (error.response) {
@@ -90,7 +115,6 @@ function UrlList(props: PropsDefinition) {
   React.useEffect(() => {
     if (props.searchText.length !== 0) {
       const filteredList = urlList.filter((url) => IsUrlSearched(url));
-      console.log(filteredList);
       setSearchedList(filteredList);
       setIsSearch(true);
     } else {
@@ -168,7 +192,12 @@ function UrlList(props: PropsDefinition) {
                     </Button>
                   </td>
                   <td>{url.date.slice(3, 15)}</td>
-                  <td>{url.urlCode}</td>
+                  <td>
+                    {isSearch && UrlCodeHighlight(url)}
+                    {!isSearch && (
+                      <span className="text-dark">{url.urlCode}</span>
+                    )}
+                  </td>
                   <td>
                     <a
                       href={url.shortUrl}
