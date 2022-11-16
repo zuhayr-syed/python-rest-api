@@ -6,6 +6,8 @@ interface PropsDefinition {
   setListOption(data: number): void;
   urlList: any[];
   setList(data: any[]): void;
+  finalList: any[];
+  setFinalList(data: any[]): void;
 }
 const optionArray = ["Newest", "Oldest"];
 
@@ -15,6 +17,7 @@ function UrlListOrder(props: PropsDefinition) {
   React.useEffect(() => {
     const setData = async () => {
       await props.setList(props.urlList.reverse());
+      await props.setFinalList(props.finalList.reverse());
     };
 
     if (option === optionArray[0]) {
