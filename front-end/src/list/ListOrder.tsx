@@ -8,6 +8,7 @@ interface PropsDefinition {
   setList(data: any[]): void;
   finalList: any[];
   setFinalList(data: any[]): void;
+  showEditUrl: boolean;
 }
 const optionArray = ["Newest", "Oldest"];
 
@@ -30,7 +31,11 @@ function UrlListOrder(props: PropsDefinition) {
   }, [option]);
 
   return (
-    <DropdownButton id="dropdown-basic-button" title={option}>
+    <DropdownButton
+      id="dropdown-basic-button"
+      title={option}
+      disabled={props.showEditUrl}
+    >
       <Dropdown.Item
         active={option === optionArray[0]}
         onClick={() => setOption(optionArray[0])}

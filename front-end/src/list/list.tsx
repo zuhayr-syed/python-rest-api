@@ -213,6 +213,7 @@ function UrlList(props: PropsDefinition) {
           urlList={urlList}
           setFinalList={setFinalList}
           finalList={finalList}
+          showEditUrl={props.showEditUrl}
         />
       </div>
       {finalList.length !== 0 ? (
@@ -243,6 +244,7 @@ function UrlList(props: PropsDefinition) {
                       variant="outline-danger"
                       size="sm"
                       onClick={() => handleDeleteClick(url._id)}
+                      disabled={props.showEditUrl}
                     >
                       <i className="bi bi-trash"></i>
                     </Button>
