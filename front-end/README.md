@@ -11,3 +11,4 @@
 - Error handling for invalid url, un-unique url code, repeated long url
 - Search through short url codes and highlight text
 - Add text for empty url list and empty search list
+- Add loader animation when loading url list
