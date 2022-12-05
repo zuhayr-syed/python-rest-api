@@ -2,6 +2,14 @@
 
 #### Created using Node.js (Express.js), React, and MongoDB
 
+- Get all urls, Add urls, Delete urls (filter url out of list when deleted), and Update urls (during edit disable list order and delete buttons)
+- Use short url to redirect to long url
+- Toggle to show/hide url fields
+- Change url list order to newest/oldest created/updated
+- Disable save button when there are no changes
+- Error handling for invalid url, un-unique url code, and repeated long url
+- Search through short url codes and highlight the matching text
+- Show loader animation when loading url list and text for empty url/search list
 
 ## Homepage:
 ![Screenshot 2022-11-15 at 10 34 04 PM](https://user-images.githubusercontent.com/67882898/202078544-f26a2191-28a8-4f36-ada1-994fda31e92c.png)
